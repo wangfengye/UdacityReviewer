@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initProjects() {
         String dataStr = sp.getString("projectIds", "project");
-        mAllowedProjectIds = dataStr.split(",");
+        mAllowedProjectIds = dataStr.split("，");
         String rateStr = sp.getString("rate", "60");
         mRate = Integer.parseInt(rateStr) * 1000;
     }
@@ -80,7 +80,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         tvCounter.setText(String.valueOf(mCounter));
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putInt("count", mCounter);
+        edit.commit();
         super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPreferences.Editor edit = sp.edit();
+        edit.putInt("count", mCounter);
+        edit.commit();
     }
 
     @Override
@@ -119,17 +130,17 @@ public class MainActivity extends AppCompatActivity {
                         if (mIsTest) {
                             mIsTest = false;
                         }
-                        Toast.makeText(MainActivity.this, "api失效", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, R.string.api_error, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onNext(String s) {
                         Log.i(TAG, "onNext: " + s);
+                        mCounter++;
                         if (mIsTest) {
                             mIsTest = false;
                             Toast.makeText(MainActivity.this, getString(R.string.api_test_str) + s, Toast.LENGTH_LONG).show();
                         }
-                        save();
                         getReviewsCount(s);
                         if (mReviews.size() > 0) {
                             for (int i = 0; i < mReviews.size(); i++) {
@@ -159,14 +170,10 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(String s) {
-                        Toast.makeText(MainActivity.this, "apply success\n" + s, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, R.string.apply_success, Toast.LENGTH_SHORT).show();
                         Log.i(TAG, "onNext: " + s);
                     }
                 });
-    }
-
-    private void save() {
-
     }
 
     /**
@@ -189,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject o2 = object.getJSONObject("project");
                 String projectId = o2.getString("id");
                 Log.i(TAG, "getReviewsCount: ");
-
                 if (hasPermissionOfProject(projectId)) {
                     int num = o2.getInt("awaiting_review_count");
                     if (num > 0) {
@@ -210,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
      * @return has permission of the project
      */
     private boolean hasPermissionOfProject(String id) {
+
         for (int i = 0; i < mAllowedProjectIds.length; i++) {
             if (id.equals(mAllowedProjectIds[i])) {
                 return true;
@@ -220,9 +227,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         SharedPreferences.Editor edit = sp.edit();
         edit.putInt("count", mCounter);
         edit.commit();
+        super.onDestroy();
+
     }
 }
