@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory
+      android:title="@string/shared_preference">
+      <EditTextPreference
+          android:key="rate"
+          android:title="@string/rate"
+          android:inputType="number"
+          android:summary="@string/rate_desc"/>
+      <EditTextPreference
+          android:key="api"
+          android:title="@string/api"
+          android:summary="@string/api_desc"/>
+      <EditTextPreference
+          android:key="projectIds"
+          android:title="@string/project"
+          android:summary="@string/project_desc"/>
+  </PreferenceCategory>
+</PreferenceScreen>

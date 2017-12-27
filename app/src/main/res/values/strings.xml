@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">reviewer</string>
+    <string name="clear">清空数据</string>
+    <string name="shared_preference">偏好设置</string>
+    <string name="rate">设置频率</string>
+    <string name="rate_desc">多少秒执行一次</string>
+    <string name="api">安全秘钥</string>
+    <string name="api_desc">从Udacity审阅者面板获取</string>
+    <string name="project">审阅项目</string>
+    <string name="project_desc">项目id,多项目使用\',\'隔开</string>
+    <string name="test_api">测试请求</string>
+    <string name="api_test_str">api测试有效</string>
+</resources>
