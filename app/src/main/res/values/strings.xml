@@ -12,4 +12,5 @@
     <string name="api_test_str">api测试有效\n</string>
     <string name="api_error">api失效或网络异常</string>
     <string name="apply_success">apply success</string>
+    <string name="close_service">关闭服务</string>
 </resources>
