@@ -107,11 +107,12 @@ public class MainActivity extends AppCompatActivity {
             min = min / 60;
             int hours = min % 24;
             result = hours == 0 ? "" : (hours + "h") + result;
+            if (min >= 24) {
+                int days = min / 24;
+                result = days == 0 ? "" : (days + "d") + result;
+            }
         }
-        if (min >= 24) {
-            int days = min / 24;
-            result = days == 0 ? "" : (days + "d") + result;
-        }
+
         if (result == "") {
             result = "0m";
         }
