@@ -16,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -104,7 +106,10 @@ public class WorkUtil {
 
     // 申请review
     private static void applyReview(String projectId) {
-        Client.getInstance().applyReview(projectId, "zh-cn")
+        RequestBody requestBody = RequestBody.create(MediaType.parse("Content-Type, application/json"),
+                "{\"lang\": \"zh-cn\"}");
+
+        Client.getInstance().applyReview(projectId, requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<String>() {

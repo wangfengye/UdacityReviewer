@@ -15,3 +15,7 @@
 
 ### BroadCast
  * 本地广播是无法通过静态注册
+ 
+ ### 2018/2/24
+ * 修复申请review请求;cause:请求体不同,需要将 form data 改为 request payload 
+    > request payload 需要 改变请求头```Content-type```,以及自己组装请求体```requestBody```
